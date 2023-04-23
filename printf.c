@@ -1,17 +1,25 @@
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "main.h"
-
 /**
- * _putchar - writes a character to stdout
- * @c: the character to print
- *
+ * print_number - prints a number
+ * @n: number to print
  * Return: the number of characters printed
  */
-int _putchar(char c)
+int print_number(int n)
 {
-	return (write(1, &c, 1));
+	unsigned int num;
+	int count = 0;
+
+	if (n < 0)
+	{
+		count += _putchar('-');
+		num = -n;
+	}
+	else
+		num = n;
+
+	if (num / 10 != 0)
+		count += print_number(num / 10);
+	count += _putchar(num % 10 + '0');
+	return (count);
 }
 
 /**
@@ -45,6 +53,10 @@ int _printf(const char *format, ...)
 							count += _putchar(*s);
 						break;
 					}
+				case 'd':
+				case 'i':
+					count += print_number(va_arg(args, int));
+					break;
 				case '%':
 					count += _putchar('%');
 					break;
@@ -55,9 +67,7 @@ int _printf(const char *format, ...)
 			}
 		}
 		else
-		{
 			count += _putchar(*format);
-		}
 		format++;
 	}
 	va_end(args);
