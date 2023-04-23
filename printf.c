@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "main.h"
 
 /**
  * _putchar - writes a character to stdout
