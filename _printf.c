@@ -60,6 +60,13 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++; /*skip the % */
+			char flags[4] = "";
+			int flag_count = 0;
+			while (*format == '+' || *format == ' ' || *format == '#')
+			{
+				flags[flag_count++] = *format++;
+			}
+
 			switch (*format)
 			{
 				case 'c':
@@ -243,4 +250,57 @@ int print_pointer(void *ptr)
 	count += print_unsigned(address, 16, 1);
 
 	return (count);
+}
+
+/**
+ *handle_flags - handles the +, space, and # flags for non-custom conversion specifiers
+ *@flags: string containing the flags
+ *@specifier: the conversion specifier character
+ *@args: the va_list of arguments
+ *
+ *Return: the number of characters printed
+ */
+int handle_flags(char *flags, char specifier, va_list args)
+{
+	int count = 0;
+
+	// check for + flag
+	if (strchr(flags, '+'))
+	{
+		int num = va_arg(args, int);
+		if (num >= 0)
+			count += _putchar('+');
+	}
+
+	// check for space flag
+	if (strchr(flags, ' '))
+	{
+		int num = va_arg(args, int);
+		if (num >= 0)
+			count += _putchar(' ');
+	}
+
+	// check for # flag
+	if (strchr(flags, '#'))
+	{
+		switch (specifier)
+		{
+			case 'o':
+				count += _putchar('0');
+				break;
+			case 'x':
+				count += _putchar('0');
+				count += _putchar('x');
+				break;
+			case 'X':
+				count += _putchar('0');
+				count += _putchar('X');
+				break;
+			case 'f':
+				count += _putchar('.');
+				break;
+		}
+	}
+
+	return count;
 }
