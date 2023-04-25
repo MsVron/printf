@@ -20,10 +20,10 @@ int _putchar(char c)
  */
 
 /*
- *_print_binary - prints an unsigned int in binary
- *@n: the unsigned int to print
+ * _print_binary - prints an unsigned int in binary
+ * @n: the unsigned int to print
  *
- *Return: the number of characters printed
+ * Return: the number of characters printed
  */
 int _print_binary(unsigned int n)
 {
@@ -60,13 +60,6 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++; /*skip the % */
-			char flags[4] = "";
-			int flag_count = 0;
-			while (*format == '+' || *format == ' ' || *format == '#')
-			{
-				flags[flag_count++] = *format++;
-			}
-
 			switch (*format)
 			{
 				case 'c':
@@ -123,9 +116,6 @@ int _printf(const char *format, ...)
 				case 'S':
 					count += print_string(va_arg(args, char *));
 					break;
-				case 'p':
-					count += print_pointer(va_arg(args, void *));
-					break;
 
 				case '%':
 					count += _putchar('%');
@@ -151,27 +141,27 @@ int _printf(const char *format, ...)
 }
 
 /**
- *print_integer - prints an integer to stdout
- *@n: the integer to print
+ * print_integer - prints an integer to stdout
+ * @n: the integer to print
  *
- *Return: the number of characters printed
+ * Return: the number of characters printed
  */
 int print_integer(int n)
 {
-	int count = 0;
+    int count = 0;
 
-	if (n < 0)
-	{
-		count += _putchar('-');
-		n = -n;
-	}
+    if (n < 0)
+    {
+        count += _putchar('-');
+        n = -n;
+    }
 
-	if (n / 10)
-		count += print_integer(n / 10);
+    if (n / 10)
+        count += print_integer(n / 10);
 
-	count += _putchar(n % 10 + '0');
+    count += _putchar(n % 10 + '0');
 
-	return (count);
+    return (count);
 }
 
 /**
@@ -232,75 +222,4 @@ int print_string(char *str)
 	}
 
 	return (count);
-}
-
-/**
- *print_pointer - prints the memory address of a void pointer
- *@ptr: pointer to print
- *
- *Return: number of characters printed
- */
-int print_pointer(void *ptr)
-{
-	unsigned long int address = (unsigned long int) ptr;
-	int count = 0;
-
-	count += _putchar('0');
-	count += _putchar('x');
-	count += print_unsigned(address, 16, 1);
-
-	return (count);
-}
-
-/**
- *handle_flags - handles the +, space, and # flags for non-custom conversion specifiers
- *@flags: string containing the flags
- *@specifier: the conversion specifier character
- *@args: the va_list of arguments
- *
- *Return: the number of characters printed
- */
-int handle_flags(char *flags, char specifier, va_list args)
-{
-	int count = 0;
-
-	// check for + flag
-	if (strchr(flags, '+'))
-	{
-		int num = va_arg(args, int);
-		if (num >= 0)
-			count += _putchar('+');
-	}
-
-	// check for space flag
-	if (strchr(flags, ' '))
-	{
-		int num = va_arg(args, int);
-		if (num >= 0)
-			count += _putchar(' ');
-	}
-
-	// check for # flag
-	if (strchr(flags, '#'))
-	{
-		switch (specifier)
-		{
-			case 'o':
-				count += _putchar('0');
-				break;
-			case 'x':
-				count += _putchar('0');
-				count += _putchar('x');
-				break;
-			case 'X':
-				count += _putchar('0');
-				count += _putchar('X');
-				break;
-			case 'f':
-				count += _putchar('.');
-				break;
-		}
-	}
-
-	return count;
 }
