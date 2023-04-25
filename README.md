@@ -1,1 +1,0 @@
-writing printf from scratch
