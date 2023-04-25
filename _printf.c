@@ -88,6 +88,22 @@ int _printf(const char *format, ...)
 						break;
 					}
 
+				case 'u':
+					count += _print_unsigned(va_arg(args, unsigned int), 10, 0);
+					break;
+
+				case 'o':
+					count += _print_unsigned(va_arg(args, unsigned int), 8, 0);
+					break;
+
+				case 'x':
+					count += _print_unsigned(va_arg(args, unsigned int), 16, 0);
+					break;
+
+				case 'X':
+					count += _print_unsigned(va_arg(args, unsigned int), 16, 1);
+					break;
+
 				case '%':
 					count += _putchar('%');
 					break;
@@ -126,6 +142,28 @@ int print_integer(int n)
 		count += print_integer(n / 10);
 
 	count += _putchar(n % 10 + '0');
+
+	return (count);
+}
+
+/*
+ *_print_unsigned - prints an unsigned int to stdout
+ *@n: the unsigned int to print
+ *@base: the base to use for printing (8 for octal, 10 for decimal, 16 for hex)
+ *@uppercase: 1 if the letters in hex should be uppercase, 0 if they should be lowercase
+ *
+ *Return: the number of characters printed
+ */
+
+int print_unsigned(unsigned int n, int base, int uppercase)
+{
+	int count = 0;
+	char *digits = uppercase ? "0123456789ABCDEF" : "0123456789abcdef";
+
+	if (n / base)
+		count += _print_unsigned(n / base, base, uppercase);
+
+	count += _putchar(digits[n % base]);
 
 	return (count);
 }
