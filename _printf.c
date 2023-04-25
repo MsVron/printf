@@ -182,3 +182,30 @@ int print_unsigned(unsigned int n, int base, int uppercase)
 
 	return (count);
 }
+
+/**
+ *print_string - Prints a string and handles non-printable characters
+ *@str: The string to print
+ *
+ *Return: The number of characters printed
+ */
+int print_string(char *str)
+{
+	int count = 0;
+
+	for (; *str != '\0'; str++)
+	{
+		if (*str < 32 || *str >= 127)
+		{
+			count += _putchar('\\');
+			count += _putchar('x');
+			count += print_unsigned(*str, 16, 1);
+		}
+		else
+		{
+			count += _putchar(*str);
+		}
+	}
+
+	return (count);
+}
