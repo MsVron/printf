@@ -19,9 +19,18 @@ int _putchar(char c)
  *Return: the number of characters printed
  */
 
+/*
+ * _print_binary - prints an unsigned int in binary
+ * @n: the unsigned int to print
+ *
+ * Return: the number of characters printed
+ */
 int _print_binary(unsigned int n)
 {
 	int count = 0;
+
+	if (n == 0)
+		return (_putchar('0'));
 
 	if (n / 2)
 		count += _print_binary(n / 2);
@@ -131,23 +140,28 @@ int _printf(const char *format, ...)
 	return (count);
 }
 
-/*
- *print_integer - prints an integer to stdout
- *@n: the integer to print
+/**
+ * print_integer - prints an integer to stdout
+ * @n: the integer to print
  *
- *Return: the number of characters printed
+ * Return: the number of characters printed
  */
-
 int print_integer(int n)
 {
-	int count = 0;
+    int count = 0;
 
-	if (n / 10)
-		count += print_integer(n / 10);
+    if (n < 0)
+    {
+        count += _putchar('-');
+        n = -n;
+    }
 
-	count += _putchar(n % 10 + '0');
+    if (n / 10)
+        count += print_integer(n / 10);
 
-	return (count);
+    count += _putchar(n % 10 + '0');
+
+    return (count);
 }
 
 /**
