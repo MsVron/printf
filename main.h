@@ -10,5 +10,6 @@ int _printf(const char *format, ...);
 int print_integer(int n);
 int _print_binary(unsigned int n);
 int print_unsigned(unsigned int n, int base, int uppercase);
+int print_string(char *str);
 
 #endif /* MAIN_H */
