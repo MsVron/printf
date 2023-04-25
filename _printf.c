@@ -93,11 +93,11 @@ int _printf(const char *format, ...)
 					break;
 
 				case 'o':
-					count += _rint_unsigned(va_arg(args, unsigned int), 8, 0);
+					count += print_unsigned(va_arg(args, unsigned int), 8, 0);
 					break;
 
 				case 'x':
-					count += _rint_unsigned(va_arg(args, unsigned int), 16, 0);
+					count += print_unsigned(va_arg(args, unsigned int), 16, 0);
 					break;
 
 				case 'X':
