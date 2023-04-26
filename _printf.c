@@ -1,4 +1,5 @@
 #include "main.h"
+#define BUFFER_SIZE 1024
 
 int print_integer(int n);
 
@@ -14,6 +15,26 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 
+/**
+ * print_buffer - writes the buffer to stdout
+ * @buffer: the buffer to write
+ * @size: the number of bytes to write
+ *
+ * Return: number of bytes written
+ */
+int print_buffer(char *buffer, int *size)
+{
+    int bytes_written;
+
+    bytes_written = write(STDOUT_FILENO, buffer, *size);
+    if (bytes_written == -1)
+        return (-1);
+
+    *size = 0;
+
+    return (bytes_written);
+}
+
 /*
  *_print_binary - prints an unsigned int in binary
  *@n: the unsigned int to print
@@ -27,6 +48,7 @@ int _putchar(char c)
  *
  *Return: the number of characters printed
  */
+
 
 int _print_binary(unsigned int n)
 {
