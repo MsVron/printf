@@ -50,24 +50,6 @@ int _print_binary(unsigned int n)
 
 int _putchar(char c);
 
-int print_integer(int n)
-{
-	int count = 0;
-	if (n < 0)
-	{
-		count += _putchar('-');
-		n = -n;
-	}
-
-	if (n / 10)
-	{
-		count += print_integer(n / 10);
-	}
-
-	count += _putchar(n % 10 + '0');
-	return count;
-}
-
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -242,4 +224,22 @@ int print_string(char *str)
 	}
 
 	return (count);
+}
+
+int print_integer(int n)
+{
+    int count = 0;
+
+    if (n < 0)
+    {
+        count += _putchar('-');
+        n = -n;
+    }
+
+    if (n / 10 != 0)
+        count += print_integer(n / 10);
+
+    count += _putchar((n % 10) + '0');
+
+    return (count);
 }
