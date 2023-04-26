@@ -143,30 +143,6 @@ int _printf(const char *format, ...)
 }
 
 /**
- *print_integer - prints an integer to stdout
- *@n: the integer to print
- *
- *Return: the number of characters printed
- */
-int print_integer(int n)
-{
-	int count = 0;
-
-	if (n < 0)
-	{
-		count += _putchar('-');
-		n = -n;
-	}
-
-	if (n / 10 != 0)
-		count += print_integer(n / 10);
-
-	count += _putchar((n % 10) + '0');
-
-	return (count);
-}
-
-/**
  *print_unsigned - prints an unsigned int to stdout
  *@n: the unsigned int to print
  *@base: the base to use for printing (8 for octal, 10 for decimal, 16 for hex)
