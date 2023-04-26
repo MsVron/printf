@@ -156,10 +156,10 @@ int print_integer(int n)
         n = -n;
     }
 
-    if (n / 10)
+    if (n / 10 != 0)
         count += print_integer(n / 10);
 
-    count += _putchar(n % 10 + '0');
+    count += _putchar((n % 10) + '0');
 
     return (count);
 }
