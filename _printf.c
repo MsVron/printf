@@ -101,6 +101,7 @@ int print_number(unsigned int n, unsigned int base, char *digits)
  *@format: the format string
  *Return: the number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
 	va_list arg;
@@ -130,6 +131,10 @@ int _printf(const char *format, ...)
 					break;
 				case 'X':
 					count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
+					break;
+				case '%':
+					_putchar('%');
+					count++;
 					break;
 				default:
 					_putchar('%');
