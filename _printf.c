@@ -53,65 +53,62 @@ int _print_binary(unsigned int n)
 
 int _printf(const char *format, ...)
 {
-	va_list args;
-	va_start(args, format);
-	
-	int count = 0;
-	
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c': 
-					count += _putchar(va_arg(args, int)); 
-					break;
-				case 's':
-				{
-					char *s = va_arg(args, char*);
-					if (!s) s = "(null)";
-					while (*s) count += _putchar(*s++);
-					break;
-				}
-				case 'd': case 'i': 
-					count += print_integer(va_arg(args, int)); 
-					break;
-				case 'b': 
-					count += _print_binary(va_arg(args, unsigned int)); 
-					break;
-				case 'u': 
-					count += print_unsigned(va_arg(args, unsigned int), 10, 0); 
-					break;
-				case 'o': 
-					count += print_unsigned(va_arg(args, unsigned int), 8, 0); 
-					break;
-				case 'x': 
-					count += print_unsigned(va_arg(args, unsigned int), 16, 0); 
-					break;
-				case 'X': 
-					count += print_unsigned(va_arg(args, unsigned int), 16, 1); 
-					break;
-				case 'S': 
-					count += print_string(va_arg(args, char*)); 
-					break;
-				case '%': 
-					count += _putchar('%'); 
-					break;
-				default: 
-					count += _putchar('%') + _putchar(*format); 
-					break;
-			}
-		}
-		else {
-			count += _putchar(*format);
-		}
-		format++;
-	}
+    va_list args;
+    int i, j, count = 0;
+    char *s;
+    char buffer[BUFFER_SIZE];
 
-	va_end(args);
-	return count;
+    va_start(args, format);
+
+    for (i = 0; format[i] != '\0'; i++)
+    {
+        if (format[i] == '%')
+        {
+            i++;
+
+            switch (format[i])
+            {
+                case 'c':
+                    buffer[count] = (char) va_arg(args, int);
+                    count++;
+                    break;
+                case 's':
+                    s = va_arg(args, char *);
+                    for (j = 0; s[j] != '\0'; j++)
+                    {
+                        buffer[count] = s[j];
+                        count++;
+                        if (count == BUFFER_SIZE)
+                        {
+                            print_buffer(buffer, &count);
+                        }
+                    }
+                    break;
+                default:
+                    buffer[count] = '%';
+                    count++;
+                    buffer[count] = format[i];
+                    count++;
+                    break;
+            }
+        }
+        else
+        {
+            buffer[count] = format[i];
+            count++;
+        }
+
+        if (count == BUFFER_SIZE)
+        {
+            print_buffer(buffer, &count);
+        }
+    }
+
+    print_buffer(buffer, &count);
+
+    va_end(args);
+
+    return count;
 }
 
 /**
