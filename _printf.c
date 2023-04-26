@@ -42,114 +42,114 @@ int _print_binary(unsigned int n)
 }
 
 /**
- * print_char - prints a character
- * @arg: the argument to print
- * Return: the number of characters printed
+ *print_char - prints a character
+ *@arg: the argument to print
+ *Return: the number of characters printed
  */
 int print_char(va_list arg)
 {
-    char c = va_arg(arg, int);
-    _putchar(c);
-    return (1);
+	char c = va_arg(arg, int);
+	_putchar(c);
+	return (1);
 }
 
 /**
- * print_string - prints a string
- * @arg: the argument to print
- * Return: the number of characters printed
+ *print_string - prints a string
+ *@arg: the argument to print
+ *Return: the number of characters printed
  */
 
 int print_string(va_list arg)
 {
-    char *str = va_arg(arg, char *);
-    int len = 0;
+	char *str = va_arg(arg, char *);
+	int len = 0;
 
-    if (str == NULL)
-        str = "(null)";
+	if (str == NULL)
+		str = "(null)";
 
-    while (str[len])
-    {
-        _putchar(str[len]);
-        len++;
-    }
+	while (str[len])
+	{
+		_putchar(str[len]);
+		len++;
+	}
 
-    return (len);
+	return (len);
 }
 
 /**
- * print_number - prints a number
- * @n: the number to print
- * @base: the base of the number
- * @digits: the digits to use
- * Return: the number of characters printed
+ *print_number - prints a number
+ *@n: the number to print
+ *@base: the base of the number
+ *@digits: the digits to use
+ *Return: the number of characters printed
  */
 int print_number(unsigned int n, unsigned int base, char *digits)
 {
-    unsigned int count = 0;
+	unsigned int count = 0;
 
-    if (n >= base)
-        count += print_number(n / base, base, digits);
+	if (n >= base)
+		count += print_number(n / base, base, digits);
 
-    _putchar(digits[n % base]);
-    count++;
+	_putchar(digits[n % base]);
+	count++;
 
-    return (count);
+	return (count);
 }
 
 /**
- * _printf - printf function
- * @format: the format string
- * Return: the number of characters printed
+ *_printf - printf function
+ *@format: the format string
+ *Return: the number of characters printed
  */
 int _printf(const char *format, ...)
 {
-    va_list arg;
-    int count = 0;
+	va_list arg;
+	int count = 0;
 
-    va_start(arg, format);
+	va_start(arg, format);
 
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
 
-            switch (*format)
-            {
-            case 'c':
-                count += print_char(arg);
-                break;
-            case 's':
-                count += print_string(arg);
-                break;
-            case 'd':
-                count += print_number(va_arg(arg, int), 10, "0123456789");
-                break;
-            case 'x':
-                count += print_number(va_arg(arg, unsigned int), 16, "0123456789abcdef");
-                break;
-            case 'X':
-                count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
-                break;
-            default:
-                _putchar('%');
-                _putchar(*format);
-                count += 2;
-                break;
-            }
-        }
-        else
-        {
-            _putchar(*format);
-            count++;
-        }
+			switch (*format)
+			{
+				case 'c':
+					count += print_char(arg);
+					break;
+				case 's':
+					count += print_string(arg);
+					break;
+				case 'd':
+					count += print_number(va_arg(arg, int), 10, "0123456789");
+					break;
+				case 'x':
+					count += print_number(va_arg(arg, unsigned int), 16, "0123456789abcdef");
+					break;
+				case 'X':
+					count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
+					break;
+				default:
+					_putchar('%');
+					_putchar(*format);
+					count += 2;
+					break;
+			}
+		}
+		else
+		{
+			_putchar(*format);
+			count++;
+		}
 
-        format++;
-    }
+		format++;
+	}
 
-    va_end(arg);
+	va_end(arg);
 
-    return (count);
+	return (count);
 }
 
 /**
@@ -186,25 +186,25 @@ int print_unsigned(unsigned int n, int base, int uppercase)
 }
 
 /**
- * print_integer - Prints an integer to stdout
- * @n: The integer to print
+ *print_integer - Prints an integer to stdout
+ *@n: The integer to print
  *
- * Return: The number of digits printed
+ *Return: The number of digits printed
  */
 int print_integer(int n)
 {
-        int count = 0;
+	int count = 0;
 
-        if (n < 0)
-        {
-                count += _putchar('-');
-                n = -n;
-        }
+	if (n < 0)
+	{
+		count += _putchar('-');
+		n = -n;
+	}
 
-        if (n / 10 != 0)
-                count += print_integer(n / 10);
+	if (n / 10 != 0)
+		count += print_integer(n / 10);
 
-        count += _putchar((n % 10) + '0');
+	count += _putchar((n % 10) + '0');
 
-        return (count);
+	return (count);
 }
