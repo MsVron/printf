@@ -51,69 +51,76 @@ int _print_binary(unsigned int n)
 
 int _printf(const char *format, ...)
 {
-	va_list args;
-	va_start(args, format);
+    int count = 0;  // move declaration to the top
+    va_list arg_list;
+    const char *str;
+    int num, i, n;
 
-	int count = 0;
+    va_start(arg_list, format);
 
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
-					break;
-				case 's':
-				{
-					char *s = va_arg(args, char *);
-					if (!s)
-						s = "(null)";
-					while (*s)
-						count += _putchar(*s++);
-					break;
-				}
-				case 'd':
-				case 'i':
-					count += print_integer(va_arg(args, int));
-					break;
-				case 'b':
-					count += _print_binary(va_arg(args, unsigned int));
-					break;
-				case 'u':
-					count += print_unsigned(va_arg(args, unsigned int), 10, 0);
-					break;
-				case 'o':
-					count += print_unsigned(va_arg(args, unsigned int), 8, 0);
-					break;
-				case 'x':
-					count += print_unsigned(va_arg(args, unsigned int), 16, 0);
-					break;
-				case 'X':
-					count += print_unsigned(va_arg(args, unsigned int), 16, 1);
-					break;
-				case 'S':
-					count += print_string(va_arg(args, char *));
-					break;
-				case '%':
-					count += _putchar('%');
-					break;
-				default:
-					count += _putchar('%') + _putchar(*format);
-					break;
-			}
-		}
-		else
-		{
-			count += _putchar(*format);
-		}
-		format++;
-	}
+    for (str = format; *str; str++)
+    {
+        if (*str != '%')
+        {
+            _putchar(*str);
+            count++;
+            continue;
+        }
 
-	va_end(args);
-	return count;
+        switch (*++str)
+        {
+            case 'c':
+                _putchar(va_arg(arg_list, int));
+                count++;
+                break;
+            case 's':
+                for (i = 0, str = va_arg(arg_list, char *); str[i]; i++)
+                {
+                    _putchar(str[i]);
+                    count++;
+                }
+                break;
+            case '%':
+                _putchar('%');
+                count++;
+                break;
+            case 'd':
+            case 'i':
+                num = va_arg(arg_list, int);
+                if (num < 0)
+                {
+                    _putchar('-');
+                    count++;
+                    num = -num;
+                }
+                n = print_number(num, 10, "0123456789");
+                count += n;
+                break;
+            case 'o':
+                num = va_arg(arg_list, unsigned int);
+                n = print_number(num, 8, "01234567");
+                count += n;
+                break;
+            case 'x':
+                num = va_arg(arg_list, unsigned int);
+                n = print_number(num, 16, "0123456789abcdef");
+                count += n;
+                break;
+            case 'X':
+                num = va_arg(arg_list, unsigned int);
+                n = print_number(num, 16, "0123456789ABCDEF");
+                count += n;
+                break;
+            default:
+                _putchar('%');
+                _putchar(*str);
+                count += 2;
+                break;
+        }
+    }
+
+    va_end(arg_list);
+    return count;
 }
 
 /**
