@@ -20,10 +20,10 @@ int _putchar(char c)
  */
 
 /*
- * _print_binary - prints an unsigned int in binary
- * @n: the unsigned int to print
+ *_print_binary - prints an unsigned int in binary
+ *@n: the unsigned int to print
  *
- * Return: the number of characters printed
+ *Return: the number of characters printed
  */
 int _print_binary(unsigned int n)
 {
@@ -48,6 +48,26 @@ int _print_binary(unsigned int n)
  *(excluding the null byte used to end output to strings)
  */
 
+int _putchar(char c);
+
+int print_integer(int n)
+{
+	int count = 0;
+	if (n < 0)
+	{
+		count += _putchar('-');
+		n = -n;
+	}
+
+	if (n / 10)
+	{
+		count += print_integer(n / 10);
+	}
+
+	count += _putchar(n % 10 + '0');
+	return count;
+}
+
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -70,9 +90,15 @@ int _printf(const char *format, ...)
 					{
 						char *s = va_arg(args, char *);
 						if (s == NULL)
+						{
 							s = "(null)";
+						}
+
 						for (; *s != '\0'; s++)
+						{
 							count += _putchar(*s);
+						}
+
 						break;
 					}
 
@@ -80,12 +106,6 @@ int _printf(const char *format, ...)
 				case 'i':
 					{
 						int n = va_arg(args, int);
-						if (n < 0)
-						{
-							count += _putchar('-');
-							n = -n;
-						}
-
 						count += print_integer(n);
 						break;
 					}
@@ -137,31 +157,31 @@ int _printf(const char *format, ...)
 
 	va_end(args);
 
-	return (count);
+	return count;
 }
 
 /**
- * print_integer - prints an integer to stdout
- * @n: the integer to print
+ *print_integer - prints an integer to stdout
+ *@n: the integer to print
  *
- * Return: the number of characters printed
+ *Return: the number of characters printed
  */
 int print_integer(int n)
 {
-    int count = 0;
+	int count = 0;
 
-    if (n < 0)
-    {
-        count += _putchar('-');
-        n = -n;
-    }
+	if (n < 0)
+	{
+		count += _putchar('-');
+		n = -n;
+	}
 
-    if (n / 10 != 0)
-        count += print_integer(n / 10);
+	if (n / 10 != 0)
+		count += print_integer(n / 10);
 
-    count += _putchar((n % 10) + '0');
+	count += _putchar((n % 10) + '0');
 
-    return (count);
+	return (count);
 }
 
 /**
