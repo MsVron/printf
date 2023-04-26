@@ -16,23 +16,21 @@ int _putchar(char c)
 }
 
 /**
- * print_buffer - writes the buffer to stdout
- * @buffer: the buffer to write
- * @size: the number of bytes to write
+ * print_buffer - Prints buffer and resets index
+ * @buffer: buffer to print
+ * @count: pointer to count of characters printed
  *
- * Return: number of bytes written
+ * Return: void
  */
-int print_buffer(char *buffer, int *size)
+void print_buffer(char *buffer, int *count)
 {
-    int bytes_written;
+    int i;
 
-    bytes_written = write(STDOUT_FILENO, buffer, *size);
-    if (bytes_written == -1)
-        return (-1);
+    for (i = 0; i < *count; i++)
+        _putchar(buffer[i]);
 
-    *size = 0;
-
-    return (bytes_written);
+    /* Reset count to 0 */
+    *count = 0;
 }
 
 /*
