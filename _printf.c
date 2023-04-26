@@ -58,6 +58,7 @@ int print_char(va_list arg)
  * @arg: the argument to print
  * Return: the number of characters printed
  */
+
 int print_string(va_list arg)
 {
     char *str = va_arg(arg, char *);
@@ -185,46 +186,25 @@ int print_unsigned(unsigned int n, int base, int uppercase)
 }
 
 /**
- *print_string - Prints a string and handles non-printable characters
- *@str: The string to print
+ * print_integer - Prints an integer to stdout
+ * @n: The integer to print
  *
- *Return: The number of characters printed
+ * Return: The number of digits printed
  */
-int print_string(char *str)
-{
-	int count = 0;
-
-	for (; *str != '\0'; str++)
-	{
-		if (*str < 32 || *str >= 127)
-		{
-			count += _putchar('\\');
-			count += _putchar('x');
-			count += print_unsigned(*str, 16, 1);
-		}
-		else
-		{
-			count += _putchar(*str);
-		}
-	}
-
-	return (count);
-}
-
 int print_integer(int n)
 {
-	int count = 0;
+        int count = 0;
 
-	if (n < 0)
-	{
-		count += _putchar('-');
-		n = -n;
-	}
+        if (n < 0)
+        {
+                count += _putchar('-');
+                n = -n;
+        }
 
-	if (n / 10 != 0)
-		count += print_integer(n / 10);
+        if (n / 10 != 0)
+                count += print_integer(n / 10);
 
-	count += _putchar((n % 10) + '0');
+        count += _putchar((n % 10) + '0');
 
-	return (count);
+        return (count);
 }
