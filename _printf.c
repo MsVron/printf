@@ -1,5 +1,7 @@
 #include "main.h"
 
+int print_integer(int n);
+
 /*
  *_putchar - writes a character to stdout
  *@c: the character to print
