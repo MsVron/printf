@@ -53,8 +53,9 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	va_start(args, format);
+
 	int count = 0;
-	
+
 	while (*format)
 	{
 		if (*format == '%')
@@ -62,26 +63,52 @@ int _printf(const char *format, ...)
 			format++;
 			switch (*format)
 			{
-				case 'c': count += _putchar(va_arg(args, int)); break;
+				case 'c':
+					count += _putchar(va_arg(args, int));
+					break;
 				case 's':
 				{
-					char *s = va_arg(args, char*);
-					if (!s) s = "(null)";
-					while (*s) count += _putchar(*s++);
+					char *s = va_arg(args, char *);
+					if (!s)
+						s = "(null)";
+					while (*s)
+						count += _putchar(*s++);
 					break;
 				}
-				case 'd': case 'i': count += print_integer(va_arg(args, int)); break;
-				case 'b': count += _print_binary(va_arg(args, unsigned int)); break;
-				case 'u': count += print_unsigned(va_arg(args, unsigned int), 10, 0); break;
-				case 'o': count += print_unsigned(va_arg(args, unsigned int), 8, 0); break;
-				case 'x': count += print_unsigned(va_arg(args, unsigned int), 16, 0); break;
-				case 'X': count += print_unsigned(va_arg(args, unsigned int), 16, 1); break;
-				case 'S': count += print_string(va_arg(args, char*)); break;
-				case '%': count += _putchar('%'); break;
-				default: count += _putchar('%') + _putchar(*format); break;
+				case 'd':
+				case 'i':
+					count += print_integer(va_arg(args, int));
+					break;
+				case 'b':
+					count += _print_binary(va_arg(args, unsigned int));
+					break;
+				case 'u':
+					count += print_unsigned(va_arg(args, unsigned int), 10, 0);
+					break;
+				case 'o':
+					count += print_unsigned(va_arg(args, unsigned int), 8, 0);
+					break;
+				case 'x':
+					count += print_unsigned(va_arg(args, unsigned int), 16, 0);
+					break;
+				case 'X':
+					count += print_unsigned(va_arg(args, unsigned int), 16, 1);
+					break;
+				case 'S':
+					count += print_string(va_arg(args, char *));
+					break;
+				case '%':
+					count += _putchar('%');
+					break;
+				default:
+					count += _putchar('%') + _putchar(*format);
+					break;
 			}
 		}
-		else count += _putchar(*format);
+		else
+		{
+			count += _putchar(*format);
+		}
 		format++;
 	}
 
