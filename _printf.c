@@ -25,6 +25,7 @@ int _putchar(char c)
  *
  *Return: the number of characters printed
  */
+
 int _print_binary(unsigned int n)
 {
 	int count = 0;
@@ -48,97 +49,43 @@ int _print_binary(unsigned int n)
  *(excluding the null byte used to end output to strings)
  */
 
-int _putchar(char c);
-
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int count = 0;
-
 	va_start(args, format);
-
-	while (*format != '\0')
+	int count = 0;
+	
+	while (*format)
 	{
 		if (*format == '%')
 		{
-			format++; /*skip the % */
+			format++;
 			switch (*format)
 			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
-					break;
-
+				case 'c': count += _putchar(va_arg(args, int)); break;
 				case 's':
-					{
-						char *s = va_arg(args, char *);
-						if (s == NULL)
-						{
-							s = "(null)";
-						}
-
-						for (; *s != '\0'; s++)
-						{
-							count += _putchar(*s);
-						}
-
-						break;
-					}
-
-				case 'd':
-				case 'i':
-					{
-						int n = va_arg(args, int);
-						count += print_integer(n);
-						break;
-					}
-
-				case 'b':
-					{
-						unsigned int n = va_arg(args, unsigned int);
-						count += _print_binary(n);
-						break;
-					}
-
-				case 'u':
-					count += print_unsigned(va_arg(args, unsigned int), 10, 0);
+				{
+					char *s = va_arg(args, char*);
+					if (!s) s = "(null)";
+					while (*s) count += _putchar(*s++);
 					break;
-
-				case 'o':
-					count += print_unsigned(va_arg(args, unsigned int), 8, 0);
-					break;
-
-				case 'x':
-					count += print_unsigned(va_arg(args, unsigned int), 16, 0);
-					break;
-
-				case 'X':
-					count += print_unsigned(va_arg(args, unsigned int), 16, 1);
-					break;
-
-				case 'S':
-					count += print_string(va_arg(args, char *));
-					break;
-
-				case '%':
-					count += _putchar('%');
-					break;
-
-				default:
-					count += _putchar('%');
-					count += _putchar(*format);
-					break;
+				}
+				case 'd': case 'i': count += print_integer(va_arg(args, int)); break;
+				case 'b': count += _print_binary(va_arg(args, unsigned int)); break;
+				case 'u': count += print_unsigned(va_arg(args, unsigned int), 10, 0); break;
+				case 'o': count += print_unsigned(va_arg(args, unsigned int), 8, 0); break;
+				case 'x': count += print_unsigned(va_arg(args, unsigned int), 16, 0); break;
+				case 'X': count += print_unsigned(va_arg(args, unsigned int), 16, 1); break;
+				case 'S': count += print_string(va_arg(args, char*)); break;
+				case '%': count += _putchar('%'); break;
+				default: count += _putchar('%') + _putchar(*format); break;
 			}
 		}
-		else
-		{
-			count += _putchar(*format);
-		}
-
+		else count += _putchar(*format);
 		format++;
 	}
 
 	va_end(args);
-
 	return count;
 }
 
