@@ -40,7 +40,7 @@ int _printf(const char *format, ...)
 
 				case 'd':
 				case 'i':
-					printed_chars += print_integer(va_arg(args, int));
+					printed_chars += print_integer((long int) va_arg(args, int));
 					break;
 
 				case 'b':
