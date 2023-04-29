@@ -135,12 +135,12 @@ int _printf(const char *format, ...)
 				case 'X':
 					count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
 					break;
-				case 'u':
-					count += print_unsigned(va_arg(arg, unsigned int), 10, 0);
-					break;
 				case '%':
 					_putchar('%');
 					count++;
+					break;
+				case 'S':
+					count += print_string_nonprintable(va_arg(arg, char *));
 					break;
 				default:
 					_putchar('%');
@@ -162,6 +162,7 @@ int _printf(const char *format, ...)
 
 	return (count);
 }
+
 /**
  *print_unsigned - prints an unsigned int to stdout
  *@n: the unsigned int to print
@@ -190,6 +191,41 @@ int print_unsigned(unsigned int n, int base, int uppercase)
 	while (i > 0)
 	{
 		count += _putchar(buf[--i]);
+	}
+
+	return (count);
+}
+
+/**
+ *print_string_nonprintable - prints a string while replacing non-printable
+ *characters with their ASCII code value in hexadecimal
+ *@str: the string to print
+ *
+ *Return: the number of characters printed
+ */
+int print_string_nonprintable(char *str)
+{
+	int count = 0;
+
+	if (str == NULL)
+		str = "(null)";
+
+	while (*str)
+	{
+		if (*str < 32 || *str >= 127)
+		{
+			_putchar('\\');
+			_putchar('x');
+			count += 2;
+			count += print_number(*str, 16, "0123456789ABCDEF");
+		}
+		else
+		{
+			_putchar(*str);
+			count++;
+		}
+
+		str++;
 	}
 
 	return (count);
