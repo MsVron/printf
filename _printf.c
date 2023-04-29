@@ -102,52 +102,66 @@ int print_number(unsigned int n, unsigned int base, char *digits)
  *Return: the number of characters printed
  */
 
-while (*format)
+int _printf(const char *format, ...)
 {
-	if (*format == '%')
+	va_list arg;
+	int count = 0;
+
+	va_start(arg, format);
+
+	while (*format)
 	{
-		format++;
-
-		if (*format == '\0')
-			break;
-
-		switch (*format)
+		if (*format == '%')
 		{
-			case 'c':
-				count += print_char(arg);
+			format++;
+
+			if (*format == '\0')
 				break;
-			case 's':
-				count += print_string(arg);
-				break;
-			case 'd':
-				count += print_number(va_arg(arg, int), 10, "0123456789");
-				break;
-			case 'x':
-				count += print_number(va_arg(arg, unsigned int), 16, "0123456789abcdef");
-				break;
-			case 'X':
-				count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
-				break;
-			case '%':
-				_putchar('%');
-				count++;
-				break;
-			default:
-				_putchar('%');
-				_putchar(*format);
-				count += 2;
-				break;
+
+			switch (*format)
+			{
+				case 'c':
+					count += print_char(arg);
+					break;
+				case 's':
+					count += print_string(arg);
+					break;
+				case 'd':
+					count += print_number(va_arg(arg, int), 10, "0123456789");
+					break;
+				case 'x':
+					count += print_number(va_arg(arg, unsigned int), 16, "0123456789abcdef");
+					break;
+				case 'X':
+					count += print_number(va_arg(arg, unsigned int), 16, "0123456789ABCDEF");
+					break;
+				case 'u':
+					count += print_unsigned(va_arg(arg, unsigned int), 10, 0);
+					break;
+				case '%':
+					_putchar('%');
+					count++;
+					break;
+				default:
+					_putchar('%');
+					_putchar(*format);
+					count += 2;
+					break;
+			}
 		}
-	}
-	else
-	{
-		_putchar(*format);
-		count++;
+		else
+		{
+			_putchar(*format);
+			count++;
+		}
+
+		format++;
 	}
 
-	format++;
+	va_end(arg);
+
+	return (count);
 }
-
 /**
  *print_unsigned - prints an unsigned int to stdout
  *@n: the unsigned int to print
