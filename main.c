@@ -7,11 +7,11 @@ int main(void)
 
 	_printf("%s\n", str);
 	_printf("%d\n", num);
-	_printf("%b\n", num);	// should print 1111011
-	_printf("%o\n", num);	// should print 173
-	_printf("%x\n", num);	// should print 7b
-	_printf("%X\n", num);	// should print 7B
-	_printf("%%\n");	// should print %
+	_printf("%b\n", num);
+	_printf("%o\n", num);
+	_printf("%x\n", num);
+	_printf("%X\n", num);
+	_printf("%%\n");
 
 	return (0);
 }
