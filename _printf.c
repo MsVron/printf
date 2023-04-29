@@ -1,34 +1,79 @@
 #include "main.h"
 
 /**
- *print_unsigned - prints an unsigned int to stdout
- *@n: the unsigned int to print
- *@base: the base to use for printing (8 for octal, 10 for decimal, 16 for hex)
- *@uppercase: 1 if the letters in hex should be uppercase, 0 if they should be lowercase
+ * _printf - prints formatted output to stdout
+ * @format: a string containing zero or more directives to write to stdout
  *
- *Return: the number of characters printed
+ * Return: the number of characters printed (excluding the null byte used to end output to strings)
  */
-int print_unsigned(unsigned int n, int base, int uppercase)
+int _printf(const char *format, ...)
 {
-	int count = 0, i = 0;
-	char buf[1024];
-	char *digits = uppercase ? "0123456789ABCDEF" : "0123456789abcdef";
+	va_list args;
+	int printed_chars = 0;
+	int i = 0;
 
-	if (n == 0)
+	va_start(args, format);
+
+	while (format && format[i])
 	{
-		return (_putchar('0'));
+		if (format[i] == '%')
+		{
+			i++;
+			switch (format[i])
+			{
+				case 'c':
+					printed_chars += _putchar(va_arg(args, int));
+					break;
+
+				case 's':
+					printed_chars += print_string(args);
+					break;
+
+				case '%':
+					printed_chars += _putchar('%');
+					break;
+
+				case 'd':
+				case 'i':
+					printed_chars += print_integer(va_arg(args, int));
+					break;
+
+				case 'b':
+					printed_chars += print_binary(va_arg(args, unsigned int));
+					break;
+
+				case 'u':
+					printed_chars += print_unsigned(va_arg(args, unsigned int), 10, 0);
+					break;
+
+				case 'o':
+					printed_chars += print_unsigned(va_arg(args, unsigned int), 8, 0);
+					break;
+
+				case 'x':
+					printed_chars += print_unsigned(va_arg(args, unsigned int), 16, 0);
+					break;
+
+				case 'X':
+					printed_chars += print_unsigned(va_arg(args, unsigned int), 16, 1);
+					break;
+
+				default:
+					_putchar('%');
+					_putchar(format[i]);
+					printed_chars += 2;
+					break;
+			}
+		}
+		else
+		{
+			printed_chars += _putchar(format[i]);
+		}
+
+		i++;
 	}
 
-	while (n != 0)
-	{
-		buf[i++] = digits[n % base];
-		n /= base;
-	}
+	va_end(args);
 
-	while (i > 0)
-	{
-		count += _putchar(buf[--i]);
-	}
-
-	return (count);
+	return (printed_chars);
 }
