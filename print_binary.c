@@ -15,7 +15,7 @@ int print_binary(unsigned int n)
 		return (_putchar('0'));
 
 	if (n / 2)
-		count += _print_binary(n / 2);
+		count += print_binary(n / 2);
 
 	count += _putchar(n % 2 + '0');
 
