@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include "holberton.h"
 #include <limits.h>
-#include "main.h"
+#include <stdio.h>
 
 /**
  *main - Entry point
@@ -9,27 +9,49 @@
  */
 int main(void)
 {
-	int ret, expected;
+	int len;
+	long int l;
 
-	/*Test case 1: printing INT_MIN with %d */
-	ret = _printf("%d", INT_MIN);
-	expected = printf("%d", INT_MIN);
-	printf("Got: %d\nExpected: %d\n", ret, expected);
+	len = _printf("%d", 1024);
+	printf("Length: %d\n", len); /*Expected length: 4 */
+	len = _printf("%d", -1024);
+	printf("Length: %d\n", len); /*Expected length: 5 */
+	len = _printf("%d", 0);
+	printf("Length: %d\n", len); /*Expected length: 1 */
+	len = _printf("%d", INT_MAX);
+	printf("Length: %d\n", len); /*Expected length: 10 */
+	len = _printf("%d", INT_MIN);
+	printf("Length: %d\n", len); /*Expected length: 11 */
 
-	/*Test case 2: printing INT_MIN and INT_MAX with %d */
-	ret = _printf("%d + %d = %d\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
-	expected = printf("%d + %d = %d\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
-	printf("Got: %d\nExpected: %d\n", ret, expected);
+	l = INT_MAX;
+	l += 1024;
+	len = _printf("%d", l);
+	printf("Length: %d\n", len); /*Expected length: 10 */
 
-	/*Test case 3: printing INT_MIN with %i */
-	ret = _printf("%i", INT_MIN);
-	expected = printf("%i", INT_MIN);
-	printf("Got: %d\nExpected: %d\n", ret, expected);
+	l = INT_MIN;
+	l -= 1024;
+	len = _printf("%d", l);
+	printf("Length: %d\n", len); /*Expected length: 11 */
 
-	/*Test case 4: printing INT_MIN and INT_MAX with %i */
-	ret = _printf("%i + %i = %i\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
-	expected = printf("%i + %i = %i\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
-	printf("Got: %d\nExpected: %d\n", ret, expected);
+	len = _printf("There is %d bytes in %d KB\n", 1024, 1);
+	printf("Length: %d\n", len); /*Expected length: 29 */
+
+	len = _printf("%d - %d = %d\n", 1024, 2048, -1024);
+	printf("Length: %d\n", len); /*Expected length: 20 */
+
+	len = _printf("%d + %d = %d\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
+	printf("Length: %d\n", len); /*Expected length: 22 */
+
+	len = _printf("%i", 1024);
+	printf("Length: %d\n", len); /*Expected length: 4 */
+	len = _printf("%i", -1024);
+	printf("Length: %d\n", len); /*Expected length: 5 */
+	len = _printf("%i", 0);
+	printf("Length: %d\n", len); /*Expected length: 1 */
+	len = _printf("%i", INT_MAX);
+	printf("Length: %d\n", len); /*Expected length: 10 */
+	len = _printf("%i", INT_MIN);
+	printf("Length: %d\n", len); /*Expected length: 11 */
 
 	return (0);
 }
