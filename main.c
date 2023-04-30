@@ -1,17 +1,35 @@
+#include <stdio.h>
+#include <limits.h>
 #include "main.h"
 
+/**
+ *main - Entry point
+ *
+ *Return: Always 0
+ */
 int main(void)
 {
-	int num = 123;
-	char *str = "Hello, world!";
+	int ret, expected;
 
-	_printf("%s\n", str);
-	_printf("%d\n", num);
-	_printf("%b\n", num);
-	_printf("%o\n", num);
-	_printf("%x\n", num);
-	_printf("%X\n", num);
-	_printf("%%\n");
+	/*Test case 1: printing INT_MIN with %d */
+	ret = _printf("%d", INT_MIN);
+	expected = printf("%d", INT_MIN);
+	printf("Got: %d\nExpected: %d\n", ret, expected);
+
+	/*Test case 2: printing INT_MIN and INT_MAX with %d */
+	ret = _printf("%d + %d = %d\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
+	expected = printf("%d + %d = %d\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
+	printf("Got: %d\nExpected: %d\n", ret, expected);
+
+	/*Test case 3: printing INT_MIN with %i */
+	ret = _printf("%i", INT_MIN);
+	expected = printf("%i", INT_MIN);
+	printf("Got: %d\nExpected: %d\n", ret, expected);
+
+	/*Test case 4: printing INT_MIN and INT_MAX with %i */
+	ret = _printf("%i + %i = %i\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
+	expected = printf("%i + %i = %i\n", INT_MIN, INT_MAX, (INT_MIN + INT_MAX));
+	printf("Got: %d\nExpected: %d\n", ret, expected);
 
 	return (0);
 }
