@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- *_printf - prints formatted output to stdout
- *@format: a string containing zero or more directives to write to stdout
+ * _printf - prints formatted output to stdout
+ * @format: a string containing zero or more directives to write to stdout
  *
- *Return: the number of characters printed (excluding the null byte used to end output to strings)
+ * Return: the number of characters printed (excluding the null byte used to end output to strings)
  */
 int _printf(const char *format, ...)
 {
@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 					break;
 
 				case 's':
-					printed_chars += print_string(va_arg(args, char *));
+					printed_chars += print_string(args);
 					break;
 
 				case '%':
