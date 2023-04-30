@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  *print_integer - prints an integer
  *@n: integer to be printed
