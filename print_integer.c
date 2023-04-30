@@ -1,3 +1,6 @@
+#include "main.h"
+#include <limits.h>
+
 /**
  *print_integer - Prints an integer to stdout
  *@n: The integer to print
