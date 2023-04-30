@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <limits.h>
 
+int _printf(const char *format, ...);
 int _putchar(char c);
 int _printf(const char *format, ...);
 int print_integer(int n);
