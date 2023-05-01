@@ -34,7 +34,6 @@ int print_string(va_list args, char *buf, int pos)
         }
     }
 
-    // add terminating null character
     buf[pos] = '\0';
 
     return pos;
