@@ -70,8 +70,8 @@ int _printf(const char *format, ...)
 					printed_chars += print_unsigned(va_arg(args, unsigned int), 16, 1);
 					break;
 
-				case 'S': // Handle %S specifier
-					printed_chars += print_string_upper(args, buf, printed_chars);
+				case 'S':
+					printed_chars += print_string(args, buf, printed_chars);
 					break;
 
 				default:
