@@ -21,8 +21,13 @@ int print_string(va_list args, char *buf, int pos)
 
 	for (i = 0; i < len; i++)
 	{
-		if (str[i] < 32 || str[i] >= 127 || str[i] == '\\')
-			pos += _strcpy(buf + pos, "\\x"), pos += _to_hex(buf + pos, str[i]);
+		if (str[i] < 32 || str[i] >= 127)
+		{
+			pos += _strcpy(buf + pos, "\\x");
+			if (str[i] < 16)
+				pos += _strcpy(buf + pos, "0");
+			pos += _to_hex(buf + pos, str[i]);
+		}
 		else
 			buf[pos++] = str[i];
 	}
