@@ -16,7 +16,7 @@ int _printf(const char *format, ...)
 	buf = malloc(BUFFER_SIZE* sizeof(char));
 	if (buf == NULL)
 	{
-		return -1;	// or handle the error in some other way
+		return -1;
 	}
 
 	if (format == NULL)
