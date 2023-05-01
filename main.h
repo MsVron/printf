@@ -13,6 +13,6 @@ int _printf(const char *format, ...);
 int print_integer(int n);
 int print_binary(unsigned int n);
 int print_unsigned(unsigned int n, int base, int uppercase);
-int print_string(va_list arg);
+int print_string(va_list args, char *buf, int pos);
 
 #endif /* MAIN_H */
