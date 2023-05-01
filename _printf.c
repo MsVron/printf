@@ -31,7 +31,7 @@ int _printf(const char *format, ...)
 					break;
 
 				case 's':
-					printed_chars += print_string(args);
+					printed_chars += print_string(args, buf, printed_chars);
 					break;
 
 				case '%':
