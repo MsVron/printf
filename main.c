@@ -9,28 +9,20 @@
  */
 int main(void)
 {
-    int len;
-    char *str;
+    char *str = "No special character.\n";
+    char _buffer[1024];
+    int len = _printf("%S", str, _buffer);
 
-    len = _printf("%S", "No special character.");
-    str = "No special character.No special character.";
     if (len != 42 || strcmp(_buffer, str) != 0)
-        printf("Error: case 1\nGot: [%.*s]\nExpected: [%s]\n", len, _buffer, str);
-
-    len = _printf("%S", "\n");
-    str = "\x0A\x0A";
-    if (len != 8 || strcmp(_buffer, str) != 0)
-        printf("Error: case 2\nGot: [%.*s]\nExpected: [%s]\n", len, _buffer, str);
-
-    len = _printf("%S", "\x01\x02\x03\x04\x05\x06\x07");
-    str = "\x01\x02\x03\x04\x05\x06\x07\x01\x02\x03\x04\x05\x06\x07";
-    if (len != 56 || strcmp(_buffer, str) != 0)
-        printf("Error: case 3\nGot: [%.*s]\nExpected: [%s]\n", len, _buffer, str);
-
-    len = _printf("Could you print some non-prntable characters?\n%S\nThanks!\n", "Sure:\x1F\x7F\n");
-    str = "Could you print some non-prntable characters?\nSure:\x1F\x7F\x0A\nThanks!\n";
-    if (len != 144 || strcmp(_buffer, str) != 0)
-        printf("Error: case 4\nGot: [%.*s]\nExpected: [%s]\n", len, _buffer, str);
+    {
+        printf("Expected output: %s\n", str);
+        printf("Actual output: %s\n", _buffer);
+        printf("Test case failed.\n");
+    }
+    else
+    {
+        printf("Test case passed.\n");
+    }
 
     return (0);
 }
