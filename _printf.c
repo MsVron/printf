@@ -1,16 +1,23 @@
 #include "main.h"
 
 /**
- * _printf - prints formatted output to stdout
- * @format: a string containing zero or more directives to write to stdout
+ *_printf - prints formatted output to stdout
+ *@format: a string containing zero or more directives to write to stdout
  *
- * Return: the number of characters printed (excluding the null byte used to end output to strings)
+ *Return: the number of characters printed (excluding the null byte used to end output to strings)
  */
 int _printf(const char *format, ...)
 {
 	va_list args;
 	int printed_chars = 0;
 	int i = 0;
+	char *buf;
+
+	buf = malloc(BUFFER_SIZE* sizeof(char));
+	if (buf == NULL)
+	{
+		return -1;	// or handle the error in some other way
+	}
 
 	if (format == NULL)
 		return (-1);
