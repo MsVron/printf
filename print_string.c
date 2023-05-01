@@ -11,28 +11,33 @@
  */
 int print_string(va_list args, char *buf, int pos)
 {
-	char *str = va_arg(args, char *);
-	int i, len;
+    char *str = va_arg(args, char *);
+    int i, len;
 
-	if (str == NULL)
-		str = "(null)";
+    if (str == NULL)
+        str = "(null)";
 
-	len = _strlen(str);
+    len = _strlen(str);
 
-	for (i = 0; i < len; i++)
-	{
-		if (str[i] < 32 || str[i] >= 127)
-		{
-			pos += _strcpy(buf + pos, "\\x");
-			if (str[i] < 16)
-				pos += _strcpy(buf + pos, "0");
-			pos += _to_hex(buf + pos, str[i]);
-		}
-		else
-			buf[pos++] = str[i];
-	}
+    for (i = 0; i < len; i++)
+    {
+        if (str[i] < 32 || str[i] >= 127)
+        {
+            pos += _strcpy(buf + pos, "\\x");
+            if (str[i] < 16)
+                pos += _strcpy(buf + pos, "0");
+            pos += _to_hex(buf + pos, str[i]);
+        }
+        else
+        {
+            buf[pos++] = str[i];
+        }
+    }
 
-	return (pos);
+    // add terminating null character
+    buf[pos] = '\0';
+
+    return pos;
 }
 
 /**
