@@ -5,19 +5,28 @@
  *
  *Return: Always 0
  */
-int main(void)
-{
-    char *str1 = "hello, world!";
-    char *str2 = "This is a string.";
-    char *str3 = "This is another string.";
-    char *str4 = "The value of pi is approximately 3.14159265359.";
-    char *str5 = "The quick brown fox jumps over the lazy dog.";
+#include <stdio.h>
 
-    _printf("%s\n", str1);
-    _printf("%s\n", str2);
-    _printf("%s\n", str3);
-    _printf("%s\n", str4);
-    _printf("%s\n", str5);
+int main() {
+    printf("Test case 1:\n");
+    printf("Expected output: No special character.No special character.\n");
+    _printf("%S", "No special character.");
+    
+    printf("\nTest case 2:\n");
+    printf("Expected output: \\x0A\\x0A\n");
+    _printf("%S", "\n");
+    
+    printf("\nTest case 3:\n");
+    printf("Expected output: \\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x01\\x02\\x03\\x04\\x05\\x06\\x07\n");
+    _printf("%S", "\x01\x02\x03\x04\x05\x06\x07");
+    
+    printf("\nTest case 4:\n");
+    printf("Expected output: Could you print some non-prntable characters?\nSure:\\x1F\\x7F\\x0A\nThanks!\n");
+    _printf("Could you print some non-prntable characters?\n%S\nThanks!\n", "Sure:\x1F\x7F\n");
+    
+    printf("\nTest case 5:\n");
+    printf("Expected output: - What did you say?\n- \n- That's what I thought.\n");
+    _printf("- What did you say?\n- %S\n- That's what I thought.\n", "");
 
     return 0;
 }
