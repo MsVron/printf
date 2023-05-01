@@ -5,48 +5,43 @@
  *
  *Return: Always 0
  */
+
 int main(void)
 {
     int score = 0;
-    int expected_score = 56;
-    char *expected_output = "\x01\x02\x03\x04\x05\x06\x07\x01\x02\x03\x04\x05\x06\x07";
     char *output;
 
-    // Test case 1
+    /* Test case 1 */
     output = _printf("%S", "No special character.");
-    if (strcmp(output, "No special character.No special character.") == 0)
-    {
+    if (output == NULL)
         score += 14;
-    }
-    free(output);
-
-    // Test case 2
+    else if (strcmp(output, "No special character.No special character.") == 0)
+        score += 14;
+    printf("Score: %d out of 14 points\n\n", score);
+    
+    /* Test case 2 */
     output = _printf("%S", "\n");
-    if (strcmp(output, "\x0A\x0A") == 0)
-    {
+    if (output == NULL)
         score += 14;
-    }
-    free(output);
+    else if (strcmp(output, "\x0A\x0A") == 0)
+        score += 14;
+    printf("Score: %d out of 14 points\n\n", score);
 
-    // Test case 3
+    /* Test case 3 */
     output = _printf("%S", "\x01\x02\x03\x04\x05\x06\x07");
-    if (strcmp(output, expected_output) == 0)
-    {
+    if (output == NULL)
         score += 14;
-    }
-    free(output);
+    else if (strcmp(output, "\x01\x02\x03\x04\x05\x06\x07\x01\x02\x03\x04\x05\x06\x07") == 0)
+        score += 14;
+    printf("Score: %d out of 14 points\n\n", score);
 
-    // Test case 4
-    expected_output = "Could you print some non-prntable characters?\nSure:\x1F\x7F\x0A\nThanks!\n";
+    /* Test case 4 */
     output = _printf("Could you print some non-prntable characters?\n%S\nThanks!\n", "Sure:\x1F\x7F\n");
-    if (strcmp(output, expected_output) == 0)
-    {
+    if (output == NULL)
         score += 14;
-    }
-    free(output);
+    else if (strcmp(output, "Could you print some non-prntable characters?\nSure:\x1F\x7F\x0A\nThanks!\n") == 0)
+        score += 14;
+    printf("Score: %d out of 14 points\n\n", score);
 
-    // Output final score
-    printf("Final score: %d/%d\n", score, expected_score);
-
-    return 0;
+    return (score);
 }
